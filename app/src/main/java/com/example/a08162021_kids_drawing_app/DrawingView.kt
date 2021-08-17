@@ -3,6 +3,7 @@ package com.example.a08162021_kids_drawing_app
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 
@@ -85,8 +86,13 @@ class DrawingView (context: Context, attrs: AttributeSet): View(context, attrs) 
         mDrawPaint!!.style = Paint.Style.STROKE
         mDrawPaint!!.strokeJoin = Paint.Join.ROUND // net ve hinh gi? cham 1 cai
         mCanvasPaint = Paint(Paint.DITHER_FLAG) // hoa mau sau khi copy?
-        mBrushSize = 20.toFloat()
 
+    }
+
+    fun setSizeForBrush(newSize: Float) {
+        mBrushSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                                                newSize, resources.displayMetrics)
+        mDrawPaint!!.strokeWidth = mBrushSize
     }
     internal inner class CustomPath(var color: Int,
                                     var brushThickness: Float) : Path(){
